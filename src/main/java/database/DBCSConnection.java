@@ -118,9 +118,9 @@ public class DBCSConnection {
 
     }
     
-    private void setSource(String source) {
+    private void setSource(String connSource) {
         
-        System.out.println("[DB DEBUG] The following are the database connection properties after reading from the " + source);
+        System.out.println("[DB DEBUG] The following are the database connection properties after reading from the " + connSource);
         System.out.println("[DB DEBUG] Database User:" + dbUser);
         System.out.println("[DB DEBUG] Database Password:" + dbPass);
         System.out.println("[DB DEBUG] Database IP:" + dbIP);
@@ -131,7 +131,8 @@ public class DBCSConnection {
         // connection information and skip the setting, ignoring dbEdition, 
         // because the $ makes it tricky to set.
         if (dbUser != null || dbPass != null || dbIP != null || dbName != null) {
-            source = source;
+            // Once source has been set, assume that's the primary...
+            source = (source != null) ? source : connSource;
         }            
     }
 
