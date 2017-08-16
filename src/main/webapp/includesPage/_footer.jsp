@@ -13,7 +13,7 @@
                 <ul>
                     <li><strong>GameShop</strong></li>
                     <li><a>Contact Us</a></li>
-                    <li><a>About Us</a></li>
+                    <li><a href="about.jsp">About Us</a></li>
                     <li><a>Careers</a></li>
                 </ul>
             </div>

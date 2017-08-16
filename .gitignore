@@ -53,4 +53,7 @@ nbactions.xml
 build.sh~
 .wercker.yml.un~
 wercker.yml~
+.run.sh.un~
+mvn-package.sh
+run.sh
 

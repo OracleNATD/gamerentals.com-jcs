@@ -12,7 +12,7 @@
         <repository>
             <id>codehaus-mule-repo</id>
             <name>codehaus-mule-repo</name>
-            <url>                https://repository-master.mulesoft.org/nexus/content/groups/public/            </url>
+            <url>https://repository-master.mulesoft.org/nexus/content/groups/public/</url>
             <layout>default</layout>
         </repository>
     </repositories>
@@ -38,7 +38,7 @@
         <databaseName>${db.name}</databaseName>
         <databaseUser>${db.user}</databaseUser>
         <databasePassword>${db.pass}</databasePassword>
-        <databaseEdition>${db.edition}</databaseEdition>
+        <databaseEdition>ora$base</databaseEdition>
     </properties>
     <build>
         <finalName>CIDemo</finalName>
@@ -54,7 +54,7 @@
                             <goal>write-project-properties</goal>
                         </goals>
                         <configuration>
-                            <outputFile>${project.build.outputDirectory}/db.properties</outputFile>
+                            <outputFile>target/CIDemo/db.properties</outputFile>
                         </configuration>
                     </execution>
                 </executions>
@@ -122,16 +122,13 @@
                 </dependencies>
                 <configuration>
                     <driver>oracle.jdbc.driver.OracleDriver</driver>
-                    <url>jdbc:oracle:thin:@//140.86.33.194/PDB1.dbdevcs14.oraclecloud.internal</url>
-                    <!-- <url>jdbc:oracle:thin:@//${db.ip}/${db.name}</url> -->
-                    <username>webapp</username>
-                    <password>webapp</password>
+                    <url>jdbc:oracle:thin:@//${db.ip}/${db.name}</url>
                     <table>flyway_schema</table>
                     <locations>
                         <location>filesystem:src/sql</location>
                     </locations>
                     <schemas>
-                        <schema>gameshop1</schema>
+                        <schema>WEBAPP2</schema>
                     </schemas>
                     <sqlMigrationPrefix>V_</sqlMigrationPrefix>
                     <sqlMigrationSeparator>__</sqlMigrationSeparator>
