@@ -19,7 +19,6 @@ public class DBCSConnection {
     //Database Connection properties
     private String dbUser = null;
     private String dbPass = null;
-    private String dbEdition = null;
     private String dbIP = null;
     private String dbName = null;
     private String source = null;
@@ -36,23 +35,21 @@ public class DBCSConnection {
         dbPass = System.getProperty("dbPass");
         dbIP = System.getProperty("dbIP");
         dbName = System.getProperty("dbName");
-        dbEdition = System.getProperty("dbEdition");
         setSource("system properties");
         
         // If the system properties are not set, look to the OS environment...        
-        if (dbUser == null || dbPass == null || dbIP == null || dbName == null || dbEdition == null) {
+        if (dbUser == null || dbPass == null || dbIP == null || dbName == null) {
             System.out.println("[DB DEBUG] The database connection information wasn't provided via system properties - checking the OS environment.");
             // This will allow an individual system property to override the properties file...
             dbUser = (dbUser != null) ? dbUser : System.getenv("dbUser");
             dbPass = (dbPass != null) ? dbPass : System.getenv("dbPass");
             dbIP = (dbIP != null) ? dbIP : System.getenv("dbIP");
             dbName = (dbName != null) ? dbName : System.getenv("dbName");
-            dbEdition = (dbEdition != null) ? dbEdition : System.getenv("dbEdition");
             setSource("OS environment");
         }
 
         // If the environment it not set, pull from a Maven generated properties file...
-        if (dbUser == null || dbPass == null || dbIP == null || dbName == null || dbEdition == null) {
+        if (dbUser == null || dbPass == null || dbIP == null || dbName == null) {
             System.out.println("[DB DEBUG] The database connection information wasn't provided via system properties or the OS environment - reading from Maven generarated db.proerties file.");
 
             try {
@@ -66,7 +63,6 @@ public class DBCSConnection {
                 dbPass = (dbPass != null) ? dbPass : dbProps.getProperty("databasePassword");
                 dbIP = (dbIP != null) ? dbIP : dbProps.getProperty("databaseIP");
                 dbName = (dbName != null) ? dbName : dbProps.getProperty("databaseName");
-                dbEdition = (dbEdition != null) ? dbEdition : dbProps.getProperty("databaseEdition");
                 setSource("Maven generated db.properties file");
             } catch (IOException e) {
                 System.out.println("[DB DEBUG] Error loading database connection info");
@@ -82,9 +78,6 @@ public class DBCSConnection {
         _conn = _ords.getConnection();
         _conn = DriverManager.getConnection(connURL, dbUser, dbPass);
 
-        Statement editionStmt = _conn.createStatement();
-        editionStmt.execute("alter session set edition=" + dbEdition);
-
     }
     
     private void setSource(String connSource) {
@@ -94,11 +87,9 @@ public class DBCSConnection {
         System.out.println("[DB DEBUG] Database Password:" + dbPass);
         System.out.println("[DB DEBUG] Database IP:" + dbIP);
         System.out.println("[DB DEBUG] Database Name:" + dbName);
-        System.out.println("[DB DEBUG] Database Edition: " + dbEdition);
         
         // If any of these have been set, consider it the primary source of 
-        // connection information and skip the setting, ignoring dbEdition, 
-        // because the $ makes it tricky to set.
+        // connection information
         if (dbUser != null || dbPass != null || dbIP != null || dbName != null) {
             // Once source has been set, assume that's the primary...
             source = (source != null) ? source : connSource;
@@ -150,20 +141,6 @@ public class DBCSConnection {
      */
     public void setDbPass(String dbPass) {
         this.dbPass = dbPass;
-    }
-
-    /**
-     * @return the dbEdition
-     */
-    public String getDbEdition() {
-        return dbEdition;
-    }
-
-    /**
-     * @param dbEdition the dbEdition to set
-     */
-    public void setDbEdition(String dbEdition) {
-        this.dbEdition = dbEdition;
     }
 
     /**
