@@ -72,37 +72,6 @@ public class DBCSConnection {
                 System.out.println("[DB DEBUG] Error loading database connection info");
             }
         }
-                
-        // If the environment it not set, pull from a application properties file...
-        if (dbUser == null || dbPass == null || dbIP == null || dbName == null || dbEdition == null) {
-            System.out.println("[DB DEBUG] The database connection information wasn't provided via system properties, the OS environment or the Maven generated properties file - reading from the application db.proerties file.");
-
-            try {
-                String dbPropsRelpath = "/WEB-INF/classes/db.properties";
-                System.out.println("[DB DEBUG] Servlet Context: " + context);
-                InputStream propStream = context.getResourceAsStream(dbPropsRelpath);
-                Properties dbProps = new Properties();
-                dbProps.load(propStream);
-                // This will allow an individual system property or environment variable to override the properties file...
-                dbUser = (dbUser != null) ? dbUser : dbProps.getProperty("databaseUser");
-                dbPass = (dbPass != null) ? dbPass : dbProps.getProperty("databasePassword");
-                dbIP = (dbIP != null) ? dbIP : dbProps.getProperty("databaseIP");
-                dbName = (dbName != null) ? dbName : dbProps.getProperty("databaseName");
-                dbEdition = (dbEdition != null) ? dbEdition : dbProps.getProperty("databaseEdition");
-                setSource("application provided db.properties file");        
-            } catch (IOException e) {
-                System.out.println("[DB DEBUG] Error loading database connection info");
-            }
-        }
-
-        /*
-        System.out.println("[DB DEBUG] The following database connection properties were read from the " + source);
-        System.out.println("[DB DEBUG] Database User:" + dbUser);
-        System.out.println("[DB DEBUG] Database Password:" + dbPass);
-        System.out.println("[DB DEBUG] Database IP:" + dbIP);
-        System.out.println("[DB DEBUG] Database Name:" + dbName);
-        System.out.println("[DB DEBUG] Database Edition: " + dbEdition);
-        */
 
         String connURL = "jdbc:oracle:thin:@//" + dbIP + ":1521/" + dbName;
         //Create Data Source
