@@ -63,8 +63,8 @@
                         Executed From Server: <b><%= java.net.InetAddress.getLocalHost().getHostName()%></b><br/>
                         Executed Server IP Address: <b><%= java.net.InetAddress.getLocalHost().getHostAddress()%></b><br/>
                         Session ID:    <b><%= session.getId()%></b><br/>
-                        Session Created:  <b><%= new java.util.Date(session.getCreationTime())%><b/><br/>
-                        Last Accessed:    <b><%= new java.util.Date(session.getLastAccessedTime())%><b/><br/>
+                        Session Created:  <b><%= new java.util.Date(session.getCreationTime())%></b><br/>
+                        Last Accessed:    <b><%= new java.util.Date(session.getLastAccessedTime())%></b><br/>
                         Session will go inactive in  <b><%= session.getMaxInactiveInterval()%> seconds</b><br/>
                     </p>
                 </div>               
