@@ -41,11 +41,6 @@
                 <br/>
                 <h1>About the CI Demo Game Store</h1>
                 <hr/>
-            </div>
-        </div>
-
-        <div class="container_16">
-            <div id="whiteBox" class="grid_16" style="padding: 10px;">
                 <div class="push_1">
                     <h3>About</h3>
                     <p>This application exists to demonstrate how Continuous Integration and Continuous Deployment (CI/CD) can include the database tier. </p>
@@ -53,20 +48,37 @@
                 <div class="push_1">
                     <h3>Database Information</h3>
                     <p>
-                        Set via: <%= DBCSConnectionManager.getConnection().getSource() %><br/>
-                        User: <%= DBCSConnectionManager.getConnection().getDbUser()%><br/>
-                        Name: <%= DBCSConnectionManager.getConnection().getDbName()%><br/>
-                        IP: <%= DBCSConnectionManager.getConnection().getDbIP()%><br/><br/>
+                        Set via: <b><%= DBCSConnectionManager.getConnection().getSource()%></b><br/>
+                        User: <b><%= DBCSConnectionManager.getConnection().getDbUser()%></b><br/>
+                        Name: <b><%= DBCSConnectionManager.getConnection().getDbName()%></b><br/>
+                        IP: <b><%= DBCSConnectionManager.getConnection().getDbIP()%></b><br/>
                     </p>
                 </div> 
                 <div class="push_1">
+
+                    <H3>HttpSession Information:</H3>
+                    <p>
+                        Served From Server:   <b><%= request.getServerName()%></b><br/>
+                        Server Port Number:   <b><%= request.getServerPort()%></b><br/>
+                        Executed From Server: <b><%= java.net.InetAddress.getLocalHost().getHostName()%></b><br/>
+                        Executed Server IP Address: <b><%= java.net.InetAddress.getLocalHost().getHostAddress()%></b><br/>
+                        Session ID:    <b><%= session.getId()%></b><br/>
+                        Session Created:  <b><%= new java.util.Date(session.getCreationTime())%><b/><br/>
+                        Last Accessed:    <b><%= new java.util.Date(session.getLastAccessedTime())%><b/><br/>
+                        Session will go inactive in  <b><%= session.getMaxInactiveInterval()%> seconds</b><br/>
+                    </p>
+                </div>               
+
+                <div class="push_1">
                     <h3>Version History</h3>
                     <p>
+                        17-08-18.01 - Added the HttpSession Information</br>
                         17-08-16.01 - Created this page :-)<br/>
                     </p>
-                </div> 
+                </div>             
             </div>
         </div>
+
         <jsp:include page="includesPage/_footer.jsp"></jsp:include>
     </body>
 </html>
