@@ -11,7 +11,7 @@ import javax.servlet.ServletContext;
 
 /*
  *
- * @author Arindam Bose
+ * @author 
  */
 public class DBCSConnection {
 
@@ -98,15 +98,26 @@ public class DBCSConnection {
 
     public Connection getConnection() throws SQLException {
         //Lazy Initialization
+        boolean newConn = false;
+        
         if (_conn == null) {
+            System.out.println("Database connection doesn't exist.");
             _conn = _ords.getConnection();
+            newConn = true;
+            System.out.println("New database connection established.");
         }
 
         if (_conn.isClosed()) {
+            System.out.println("Connection is closed.");
             _conn = _ords.getConnection();
+            newConn = true;
+            System.out.println("New database connection established.");
         }
-
-        System.out.println("Database connection completed successfully");
+        
+        if (!newConn) {
+            System.out.println("Using existing database connection");
+        }
+        
         return _conn;
     }
 

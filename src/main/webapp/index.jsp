@@ -28,7 +28,20 @@
     <body>
 
         <%
-            if (session.getAttribute("src/main/java/user") == null) {// THen new user, show join now
+            Integer hitsCount = (Integer) application.getAttribute("hitCounter");
+            if (hitsCount == null || hitsCount == 0) {
+                /* First visit */
+                System.out.println("First fisit");
+                hitsCount = 1;
+            } else {
+                /* Return visit */
+                System.out.println("Return visit");
+                hitsCount++;
+            }
+            application.setAttribute("hitCounter", hitsCount);
+        %>
+
+        <%            if (session.getAttribute("src/main/java/user") == null) {// New user, show join now
                 System.out.println("[DEBUG INFO] User NOT logged in");
         %>
         <jsp:include page="includesPage/_joinNow.jsp"></jsp:include>
@@ -82,7 +95,6 @@
 
                             </span>
                         </li>   
-                        <div class="clear sliderImage"></div>  
                     </ul>
                 </div>
             </div>
@@ -117,6 +129,7 @@
                     <div class="adv">
                         <h2><br/>Advertise your product here</h2>
                         <p>Sponsor ads will appear in this section</p>
+                        Total number of visits: <%= hitsCount%>
                     </div>
                 </div>
             </div>

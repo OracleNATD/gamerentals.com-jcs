@@ -24,8 +24,12 @@ public class DBCSConnectionManager {
 
 		ServletContext context = CurrentServletContext.getInstance().getContext();
 		if( _dbcs == null || !_dbcs.isActive()){
+                        System.out.println("Instantiating a new database connection");
 			_dbcs = new DBCSConnection(context);
-		}
+                        System.out.println("New database connection instantiated");
+		} else {
+                        System.out.println("Using existing database connection object");                    
+                }
 
 		return _dbcs;
 	}
