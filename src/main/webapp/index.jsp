@@ -55,9 +55,11 @@
         %>
 
         <%
-            System.out.println("request.getRemoteAddr first octet = " + request.getRemoteAddr().substring(0, 3));
-            if (request.getRemoteAddr().substring(0, 3).equals("10.")) {
-                System.out.println("Ignoring request from internal ACCS IP " + request.getRemoteAddr());
+            System.out.println("request.getMethod() = " + request.getMethod());
+            if (request.getMethod().equals("HEAD")) {
+                // OTD does a regular health check on the app by doing a HEAD request on the root URL. 
+                // We want to ignore these requests.
+                System.out.println("Ignoring OTD health check HEAD request.");
             } else {
         %>
         <div id = "banner">
