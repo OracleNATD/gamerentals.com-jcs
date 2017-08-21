@@ -31,17 +31,17 @@
             Integer hitsCount = (Integer) application.getAttribute("hitCounter");
             if (hitsCount == null || hitsCount == 0) {
                 /* First visit */
-                System.out.println("First fisit");
                 hitsCount = 1;
+                System.out.println("Visit number " + hitsCount + " from " + request.getRemoteAddr());
             } else {
                 /* Return visit */
-                System.out.println("Return visit");
                 hitsCount++;
+                System.out.println("Visit number " + hitsCount + " from " + request.getRemoteAddr());
             }
             application.setAttribute("hitCounter", hitsCount);
         %>
 
-        <%            if (session.getAttribute("src/main/java/user") == null) {// New user, show join now
+        <%  if (session.getAttribute("src/main/java/user") == null) {// New user, show join now
                 System.out.println("[DEBUG INFO] User NOT logged in");
         %>
         <jsp:include page="includesPage/_joinNow.jsp"></jsp:include>
@@ -54,6 +54,12 @@
             }
         %>
 
+        <%
+            System.out.println("request.getRemoteAddr first octet = " + request.getRemoteAddr().substring(0, 3));
+            if (request.getRemoteAddr().substring(0, 3).equals("10.")) {
+                System.out.println("Ignoring request from internal ACCS IP " + request.getRemoteAddr());
+            } else {
+        %>
         <div id = "banner">
             <div class="container_16">
                 <div class="grid_16" style="padding-left: 20px; " id="slider">	
@@ -102,7 +108,7 @@
 
         <div class="container_16">
             <div id = "contents">
-                <!-- LeftSide -->
+                <!-- LeftSide -->                
                 <%
                     Connection c = DBCSConnectionManager.getConnection().getConnection();
                     Statement st = c.createStatement();
@@ -143,6 +149,7 @@
             <!--The Center Content Div Closing -->
 
         <jsp:include page="includesPage/_footer.jsp"></jsp:include>
+        <%} // End else (not internal ACCS IP)%> 
 
     </body>
 </html>
