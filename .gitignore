@@ -63,3 +63,5 @@ build-with-dependencies.sh~
 .run-us2.sh.un~
 run-us2.sh~
 
+# OSX
+.DS_Store/*
