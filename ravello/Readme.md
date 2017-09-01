@@ -1,4 +1,4 @@
-#CI/CD with Ravello
+# CI/CD with Ravello
 Ed Shnekendorf and Brian Leonard, Cloud Platform Architects
 
 ----------
@@ -14,12 +14,12 @@ With regards to the configuration management and provisioning tools, the results
 
 Ravello provides a graphical, declarative way to to define your configuration, which can then be blueprinted for easy provisioning. This article and associated resources provide an example of how Ravello can fit into your CI/CD narrative when using it as IaC.
 
-##The Application (Game Shop)
+## The Application (Game Shop)
 For this example we've settled on a 3-tier web application called the Game Shop, which is a store front for video games. The application, which is fronted by an NGINX load-balancer, runs on Tomcat and uses the Oracle 12c database. Represented in Ravello it appears as follows:
 
 ![](images/blueprint.jpg)
 
-###Some Notes
+### Some Notes
 
 
 
@@ -28,7 +28,7 @@ For this example we've settled on a 3-tier web application called the Game Shop,
 
 
 
-##The Build Tool (Jenkins)
+## The Build Tool (Jenkins)
 For the purpose of this exercise, Jenkins has been installed from [Bitnami](https://bitnami.com/stack/jenkins) as a separate Ravello application, however any installation of Jenkins should suffice. The following specific actions were taken to configure our instance of Jenkins to work with Ravello:
 
 1. Python and its pip package manager were installed:
@@ -51,8 +51,10 @@ For the purpose of this exercise, Jenkins has been installed from [Bitnami](http
 
 		ravelloPublishDeploy.sh
 
+6. [set-creds](set-creds) was run to store our Ravello credentials in an encrypted file to be used by the Ravello SDK. 
 
-##The Magic (Ravello Python SDK)
+
+## The Magic (Ravello Python SDK)
 Ravello has a powerful powerful [Python SDK](https://github.com/ravello/python-sdk) (backed by an equally powerful [REST API](https://www.ravellosystems.com/ravello-api-doc/)) and our intent is to use it do to the following:
 
 1. Authenticate to Ravello
