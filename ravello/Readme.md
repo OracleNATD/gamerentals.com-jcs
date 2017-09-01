@@ -17,7 +17,7 @@ Ravello provides a graphical, declarative way to to define your configuration, w
 ## The Application (Game Shop)
 For this example we've settled on a 3-tier web application called the Game Shop, which is a store front for video games. The application, which is fronted by an NGINX load-balancer, runs on Tomcat and uses the Oracle 12c database. Represented in Ravello it appears as follows:
 
-![](images/blueprint.jpg)
+![](images/blueprint.JPG)
 
 ### Some Notes
 
