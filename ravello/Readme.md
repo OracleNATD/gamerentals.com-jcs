@@ -35,7 +35,7 @@ For the purpose of this exercise, Jenkins has been installed from [Bitnami](http
 
     	# curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"; sudo python get-pip.py
 
-1. The [Python SDK](https://github.com/ravello/python-sdk) was installed:
+1. The [Ravello Python SDK](https://github.com/ravello/python-sdk) was installed:
 
 		$ sudo pip install ravello_sdk
 
