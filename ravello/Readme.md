@@ -49,20 +49,19 @@ For the purpose of this exercise, Jenkins has been installed from [Bitnami](http
     3. A **Project Name** of *GameRentals*.  The **This Project is Parameterized** checkbox is activated and a String parameter of *BLUEPRINT_NAME* is added.  The default value is set to *Ravello CI/CD Demo Blueprint v4*.  The parameter is expected by the Ravello deployment scripts.
     3. The **Build Triggers** Tab is configured to **Poll SCM** every minute.  Alternatively, you can configure a post-commit hook.
     3. The **Source Control** tab is configured for **Git** access.  The **Repository URL** should point to this repository (or preferably your fork of it).  In either case, you will want write access to trigger the builds off commits.
-    4.  The **Build** tab should have 3 build actions.  The first two should be **Maven** build actions and the third should be a **Execute Shell** Action.  The Goals/Commands are below.  In our sample db_name = pdborcl.localdomain, db_user = webapp, db_password = webapp
-    
+    4.  The **Build** tab should have 3 build actions.  The first two should be **Maven** build actions and the third should be a **Execute Shell** Action.  The Goals/Commands are below.  In our sample db_name = pdborcl.localdomain, db_user = webapp, db_password = webapp    
         
-        - FIRST BUILD ACTION
+        1. FIRST BUILD ACTION
 	```
         mvn install:install-file -DgroupId=com.oracle.jdbc -DartifactId=ojdbc7 -Dversion=12.1.0.2 -Dpackaging=jar -Dfile=ojdbc7.jar
 	```
 
-        - SECOND BUILD ACTION
+        2. SECOND BUILD ACTION
 	```
 	mvn clean package -Ddb.ip=10.0.0.8 -Ddb.name=<db name> -Ddb.user=<db user> -Ddb.pass=<db password> 
 	```
 	
-        - THIRD BUILD ACTION
+        3. THIRD BUILD ACTION
 	```
         cd /home/oracle/Ravello
 		./ravelloPublishDeploy.sh "$BLUEPRINT_NAME" "$BUILD_TAG-$GIT_COMMIT"
