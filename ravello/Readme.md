@@ -1,4 +1,4 @@
-# CI/CD with Ravello
+# Ravello-Backed CI/CD
 Ed Shnekendorf and Brian Leonard, Cloud Platform Architects
 
 ----------
