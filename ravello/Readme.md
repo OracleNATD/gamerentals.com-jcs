@@ -51,17 +51,17 @@ For the purpose of this exercise, Jenkins has been installed from [Bitnami](http
     3. The **Source Control** tab is configured for **Git** access.  The **Repository URL** should point to this repository (or preferably your fork of it).  In either case, you will want write access to trigger the builds off commits.
     4.  The **Build** tab should have 3 build actions.  The first two should be **Maven** build actions and the third should be a **Execute Shell** Action.  The Goals/Commands are below.  In our sample db_name = pdborcl.localdomain, db_user = webapp, db_password = webapp    
         
-   #### FIRST BUILD ACTION
+#### FIRST BUILD ACTION
 ```
         mvn install:install-file -DgroupId=com.oracle.jdbc -DartifactId=ojdbc7 -Dversion=12.1.0.2 -Dpackaging=jar -Dfile=ojdbc7.jar
 ```
 
-   #### SECOND BUILD ACTION
+#### SECOND BUILD ACTION
 ```
 	mvn clean package -Ddb.ip=10.0.0.8 -Ddb.name=<db name> -Ddb.user=<db user> -Ddb.pass=<db password>
 ```
 	
-   #### THIRD BUILD ACTION
+#### THIRD BUILD ACTION
 ```
  	cd /home/oracle/Ravello
 	./ravelloPublishDeploy.sh "$BLUEPRINT_NAME" "$BUILD_TAG-$GIT_COMMIT"
