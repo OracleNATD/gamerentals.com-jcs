@@ -53,14 +53,20 @@ For the purpose of this exercise, Jenkins has been installed from [Bitnami](http
     
         
         - FIRST BUILD ACTION
+	```
         mvn install:install-file -DgroupId=com.oracle.jdbc -DartifactId=ojdbc7 -Dversion=12.1.0.2 -Dpackaging=jar -Dfile=ojdbc7.jar
+	```
 
         - SECOND BUILD ACTION
-		mvn clean package -Ddb.ip=10.0.0.8 -Ddb.name=<db name> -Ddb.user=<db user> -Ddb.pass=<db password> 
-
+	```
+	mvn clean package -Ddb.ip=10.0.0.8 -Ddb.name=<db name> -Ddb.user=<db user> -Ddb.pass=<db password> 
+	```
+	
         - THIRD BUILD ACTION
+	```
         cd /home/oracle/Ravello
 		./ravelloPublishDeploy.sh "$BLUEPRINT_NAME" "$BUILD_TAG-$GIT_COMMIT"
+	```
 
 6. [set-creds](set-creds) was run to store our Ravello credentials in an encrypted file to be used by the Ravello SDK. The user must have access to the blueprint passed in via the *BLUEPRINT_NAME* paramter.  This is run from the console of the Jenkins VM as a one-time action (e.g. *python /home/oracle/Ravello/set-creds*)
 
