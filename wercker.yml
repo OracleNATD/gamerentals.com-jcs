@@ -10,7 +10,7 @@ build:
         name: Build 
         code: |
           mvn install:install-file -DgroupId=com.oracle.jdbc -DartifactId=ojdbc7 -Dversion=12.1.0.2 -Dpackaging=jar -Dfile=ojdbc7.jar
-          mvn clean package
+          mvn clean package -Ddb.ip=$DBIP -Ddb.name=$DBNAME -Ddb.user=$DBUSER -Ddb.pass=$DBPASS 
 
 # This pipeline will be chained to start at the end of a build pipeline in the
 # Wercker Web Workflows editor.
@@ -20,8 +20,7 @@ push-to-dockerhub:
         username: $USERNAME
         password: $PASSWORD
         tag: development
-        working-dir: /pipeline/source # For some reason this isn't the default
-        entrypoint: java -jar -DdbUser=$DBUSER -DdbPass=$DBPASS -DdbIP=$DBIP -DdbName=$DBNAME target/CIDemo.jar -httpPort=5000"
+        cmd: java -jar  /pipeline/source/target/CIDemo.jar -httpPort=5000"
         ports: "5000"
         repository: wbleonard/gamerentals
         registry: https://registry.hub.docker.com
