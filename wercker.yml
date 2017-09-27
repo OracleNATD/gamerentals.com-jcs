@@ -32,4 +32,4 @@ restart-occs-deployment:
     - script:
         name: Restart OCCS Deployment
         code: |
-          curl -k -X POST '/api/v2/deployments/Game-Rentals-20170721-095054/webhook/restart?token=atnuuvqq' -H 'authorization: Basic $($BEARER_TOKEN)'
+          curl -k -X POST 'https://140.86.40.114/api/v2/deployments/Game-Rentals-20170721-095054/webhook/restart?token=atnuuvqq' -H 'authorization: Basic $($BEARER_TOKEN)'
