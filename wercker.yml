@@ -1,35 +1,20 @@
-# This references a standard debian container from the
-# Docker Hub https://registry.hub.docker.com/_/debian/
-# Read more about containers on our dev center
-# http://devcenter.wercker.com/docs/containers/index.html
+# Use a base container with Maven. Like FROM in Dockerfile.
 box: maven:latest 
-# You can also use services such as databases. Read more on our dev center:
-# http://devcenter.wercker.com/docs/services/index.html
-# services:
-    # - postgres
-    # http://devcenter.wercker.com/docs/services/postgresql.html
 
-    # - mongo
-    # http://devcenter.wercker.com/docs/services/mongodb.html
-
-# This is the build pipeline. Pipelines are the core of wercker
-# Read more about pipelines on our dev center
-# http://devcenter.wercker.com/docs/pipelines/index.html
+# This Pipeline is run whenever a new git commit is pushed.
 build:
-    # Steps make up the actions in your pipeline
-    # Read more about steps on our dev center:
-    # http://devcenter.wercker.com/docs/steps/index.html
+
+    # A step that executes `mvn install` command
   steps:
-    - script:
-        name: echo
-        code: |
-          echo "hello world!"
     - script:
         name: Build 
         code: |
           mvn install:install-file -DgroupId=com.oracle.jdbc -DartifactId=ojdbc7 -Dversion=12.1.0.2 -Dpackaging=jar -Dfile=ojdbc7.jar
           mvn clean package
-deploy:
+
+# This pipeline will be chained to start at the end of a build pipeline in the
+# Wercker Web Workflows editor.
+push-to-dockerhub:
   steps:
     - internal/docker-push:
         username: $USERNAME
@@ -39,3 +24,12 @@ deploy:
         ports: "5000"
         repository: wbleonard/gamerentals
         registry: https://registry.hub.docker.com
+
+# This pipeline will be chained to start at the end of a build pipeline in the
+# Wercker Web Workflows editor.
+restart-occs-deployment:
+  steps:
+    - script:
+        name: Restart OCCS Deployment
+        code: |
+          curl -k -X POST '/api/v2/deployments/Game-Rentals-20170721-095054/webhook/restart?token=atnuuvqq' -H 'authorization: Basic $($BEARER_TOKEN)'
