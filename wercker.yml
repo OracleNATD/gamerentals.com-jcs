@@ -20,6 +20,7 @@ push-to-dockerhub:
         username: $USERNAME
         password: $PASSWORD
         tag: development
+        working-dir: /pipeline/source # For some reason this isn't the default
         cmd: java -jar -DdbUser=$DBUSER -DdbPass=$DBPASS -DdbIP=$DBIP -DdbName=$DBNAME target/CIDemo.jar -httpPort=5000"
         ports: "5000"
         repository: wbleonard/gamerentals
