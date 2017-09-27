@@ -20,7 +20,7 @@ push-to-dockerhub:
         username: $USERNAME
         password: $PASSWORD
         tag: development
-        cmd: java -jar  /pipeline/source/target/CIDemo.jar -httpPort=5000"
+        entrypoint: "java -jar  /pipeline/source/target/CIDemo.jar -httpPort=5000"
         ports: "5000"
         repository: wbleonard/gamerentals
         registry: https://registry.hub.docker.com
