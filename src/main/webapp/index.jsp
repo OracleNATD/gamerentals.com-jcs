@@ -1,3 +1,4 @@
+<%@page import="java.util.Enumeration"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
@@ -55,12 +56,29 @@
         %>
 
         <%
+            // Log Headers received to see if health check sends something unique...
+            System.out.println("\n** Logging headers:");
+            Enumeration enumeration = request.getHeaderNames();
+            while (enumeration.hasMoreElements()) {
+                String name = (String) enumeration.nextElement();
+                String value = request.getHeader(name);
+                System.out.println(name + " = " + value);
+            }
+            System.out.println("** Header logging complete\n");
+            
             System.out.println("request.getMethod() = " + request.getMethod());
-            if (request.getMethod().equals("HEAD")) {
-                // OTD does a regular health check on the app by doing a HEAD request on the root URL. 
-                // We want to ignore these requests.
-                System.out.println("Ignoring OTD health check HEAD request.");
+// It appears the OTD health check is a GET request...
+//            if (request.getMethod().equals("HEAD")) {
+//                // OTD does a regular health check on the app by doing a HEAD request on the root URL. 
+//                // We want to ignore these requests.
+//                System.out.println("Ignoring OTD health check HEAD request.");
+           
+            // Skip requests from OTD health check (no user-agent header)...
+            String userAgent = request.getHeader("user-agent");            
+            if (userAgent == null) {
+                System.out.println("Ignoring OTD health check request");
             } else {
+
         %>
         <div id = "banner">
             <div class="container_16">

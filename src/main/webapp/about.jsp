@@ -58,6 +58,7 @@
 
                     <H3>HttpSession Information:</H3>
                     <p>
+                        Client:               <b><%= request.getHeader("user-agent") %></b><br/>
                         Served From Server:   <b><%= request.getServerName()%></b><br/>
                         Server Port Number:   <b><%= request.getServerPort()%></b><br/>
                         Executed From Server: <b><%= java.net.InetAddress.getLocalHost().getHostName()%></b><br/>
