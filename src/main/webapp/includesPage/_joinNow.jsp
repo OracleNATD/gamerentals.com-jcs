@@ -2,7 +2,7 @@
 <div id = "topWrapper">
     <div class="container_16">
         <div class="grid_16">
-            <div class="grid_6"> <a id="logo" href="index.jsp">GameShop Default Demo</a>
+            <div class="grid_6"> <a id="logo" href="index.jsp">GameShop Default Demo - Test</a>
             </div>
             <div class="grid_6" id="top">
                 <ul>
