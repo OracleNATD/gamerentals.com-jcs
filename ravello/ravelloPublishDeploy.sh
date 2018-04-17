@@ -39,7 +39,7 @@ do
 	APP_STATE=`python app-get-state "$APP_NAME"`
     echo "Waiting for all VMs to start.  Current state is [$APP_STATE]"
 done
-sleep 60 
+sleep 90 
 
 #
 # Extract IP addresses of Tomcat instances
