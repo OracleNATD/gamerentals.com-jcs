@@ -47,7 +47,7 @@
 
                             </td>
                             <td>
-                                <input type="submit" value="Login!!" id="greenBtn" /><br/>
+                                <input type="submit" value="Login" id="greenBtn" /><br/>
                             </td>
                         </tr>
                     </table>
