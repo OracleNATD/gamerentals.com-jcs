@@ -47,6 +47,8 @@ sleep 90
 echo "Getting Public IPs from App Servers"
 PUBLIC_IP_APP_1=`python app-get-vm-ip "$APP_NAME" "AppServer 1"`
 PUBLIC_IP_APP_2=`python app-get-vm-ip "$APP_NAME" "AppServer 2"`
+echo $PUBLIC_IP_APP_1
+echo $PUBLIC_IP_APP_2
 
 #
 # SCP WAR file to app servers
@@ -55,11 +57,11 @@ WAR_NAME=CIDemo.war
 SRC_PATH=/home/oracle/jenkins-2.60.3-0/apps/jenkins/jenkins_home/workspace/GameRentals/target/$WAR_NAME
 TARGET_DIR=/var/lib/tomcat7/webapps
 
-scp -o StrictHostKeyChecking=no -i ../NAS-Platform-Specialist-GSEv2 $SRC_PATH ravello@$PUBLIC_IP_APP_1:/tmp/
-ssh -o StrictHostKeyChecking=no -i ../NAS-Platform-Specialist-GSEv2 ravello@$PUBLIC_IP_APP_1 "sudo mv /tmp/$WAR_NAME $TARGET_DIR"
+scp -o StrictHostKeyChecking=no -i /home/oracle/NAS-Platform-Specialist-GSEv2 $SRC_PATH ravello@$PUBLIC_IP_APP_1:/tmp/
+ssh -o StrictHostKeyChecking=no -i /home/oracle/NAS-Platform-Specialist-GSEv2 ravello@$PUBLIC_IP_APP_1 "sudo mv /tmp/$WAR_NAME $TARGET_DIR"
 
-scp -o StrictHostKeyChecking=no -i ../NAS-Platform-Specialist-GSEv2 $SRC_PATH ravello@$PUBLIC_IP_APP_2:/tmp/
-ssh -o StrictHostKeyChecking=no -i ../NAS-Platform-Specialist-GSEv2 ravello@$PUBLIC_IP_APP_2 "sudo mv /tmp/$WAR_NAME $TARGET_DIR"
+scp -o StrictHostKeyChecking=no -i /home/oracle/NAS-Platform-Specialist-GSEv2 $SRC_PATH ravello@$PUBLIC_IP_APP_2:/tmp/
+ssh -o StrictHostKeyChecking=no -i /home/oracle/NAS-Platform-Specialist-GSEv2 ravello@$PUBLIC_IP_APP_2 "sudo mv /tmp/$WAR_NAME $TARGET_DIR"
 
 #
 # Wait for DB to start up
